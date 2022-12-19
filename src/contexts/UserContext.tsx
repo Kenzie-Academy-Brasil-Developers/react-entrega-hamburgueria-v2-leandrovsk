@@ -39,6 +39,7 @@ interface iUserContext {
   products:iProduct[] | null;
   setProducts: React.Dispatch<React.SetStateAction<iProduct[] | null>>;
   userLogout: () => void;
+  getProductsData: () => void;
 }
 
 export const UserContext = createContext({} as iUserContext);
@@ -49,32 +50,32 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [products, setProducts] = useState<iProduct[] | null>(null)
   const [userData, setUserData] = useState<iUserData|null>(null);
 
+  const getProductsData = async () => {
+    const token = localStorage.getItem("@TOKEN");
+
+    if (!token) {
+      setStateLoading(false);
+      return;
+    }
+
+    try {
+      const data = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await api.get<iProduct[]>("/products", data);
+      setProducts(response.data);
+    } catch (error) {
+      toast.error("Ops! Algo deu errado");
+      navigate("/login");
+      window.localStorage.clear();
+    } finally {
+      setStateLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const getProductsData = async () => {
-      const token = localStorage.getItem("@TOKEN");
-
-      if (!token) {
-        setStateLoading(false);
-        return;
-      }
-
-      try {
-        const data = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        const response = await api.get<iProduct[]>("/products", data);
-        setProducts(response.data);
-      } catch (error) {
-        toast.error("Ops! Algo deu errado");
-        navigate("/login");
-        window.localStorage.clear();
-      } finally {
-        setStateLoading(false);
-      }
-    };
-
     getProductsData();
   }, [userData]);
 
@@ -116,5 +117,5 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     navigate('/login');
   }
 
-  return <UserContext.Provider value={{ globalLoading, setGlobalLoading, userData, setUserData, userLogin, userRegister, stateLoading, products, setProducts , userLogout }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ globalLoading, setGlobalLoading, userData, setUserData, userLogin, userRegister, stateLoading, products, setProducts , userLogout, getProductsData }}>{children}</UserContext.Provider>;
 };

@@ -13,13 +13,14 @@ interface iCartContext {
     modal: boolean;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
     removeProductFromCart: (id:string) => void;
+    handleSearch: (value:string) => void;
 }
 
 export const CartContext = createContext({} as iCartContext)
 
 export const CartProvider = ({ children }: iCartProviderProps) => {
 
-    const { products } = useContext(UserContext)
+    const { products, setProducts, getProductsData } = useContext(UserContext)
 
     const [cartProducts, setCartProducts] = useState<iProduct[]>([])
     const [modal, setModal] = useState(false)
@@ -42,8 +43,20 @@ export const CartProvider = ({ children }: iCartProviderProps) => {
         setCartProducts(newCartProducts)
     }
 
+    function handleSearch(value:string) {
+        const foundProducts = products?.filter(
+          (element) => element.name.toLowerCase().includes(value.toLowerCase()) || element.category.toLowerCase().includes(value.toLowerCase())
+        );
+
+        if (value !== "") {
+           foundProducts && setProducts(foundProducts);
+        } else {
+          getProductsData()
+        }
+      }
+
     return (
-        <CartContext.Provider value={{ cartProducts, setCartProducts, addProductToCart, modal, setModal, removeProductFromCart }}>
+        <CartContext.Provider value={{ cartProducts, setCartProducts, addProductToCart, modal, setModal, removeProductFromCart, handleSearch }}>
             {children}
         </CartContext.Provider>
     )
