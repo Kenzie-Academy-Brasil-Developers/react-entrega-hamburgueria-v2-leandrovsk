@@ -10,7 +10,7 @@ import cart from '../../assets/img/cart.svg'
 const Header = () => {
 
   const { userLogout } = useContext(UserContext)
-  const { setModal } = useContext(CartContext)
+  const { setModal, cartProducts } = useContext(CartContext)
 
   return (
     <>
@@ -21,6 +21,7 @@ const Header = () => {
               <InputSearch />
               <button className="CartBtn" onClick={() => setModal(true)}>
                 <img src={cart} alt="cart button" />
+                <p>{cartProducts ? cartProducts.length : 0}</p>
               </button>
               <button className="LogoutBtn" onClick={() => userLogout()}>
                 <img src={logout} alt="logout button" />

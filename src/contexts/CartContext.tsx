@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { toast } from "react-toastify";
 import { iProduct, UserContext } from "./UserContext";
 
 interface iCartProviderProps {
@@ -7,6 +8,7 @@ interface iCartProviderProps {
 
 interface iCartContext {
     cartProducts: null | iProduct[];
+    setCartProducts:React.Dispatch<React.SetStateAction<iProduct[]>>;
     addProductToCart: (id: string) => void;
     modal: boolean;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,6 +29,9 @@ export const CartProvider = ({ children }: iCartProviderProps) => {
         const checkDuplicated = cartProducts.find(product => product.id === id)
         if (!checkDuplicated && item) {
             setCartProducts([...cartProducts, item])
+            toast.success(`O item ${item.name} foi adicionado ao carrinho com sucesso!`)
+        } else {
+            toast.warning(`O item ${item?.name} já foi adicionado ao carrinho!`)
         }
     }
 
@@ -38,7 +43,7 @@ export const CartProvider = ({ children }: iCartProviderProps) => {
     }
 
     return (
-        <CartContext.Provider value={{ cartProducts, addProductToCart, modal, setModal, removeProductFromCart }}>
+        <CartContext.Provider value={{ cartProducts, setCartProducts, addProductToCart, modal, setModal, removeProductFromCart }}>
             {children}
         </CartContext.Provider>
     )

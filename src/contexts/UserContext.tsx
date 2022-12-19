@@ -37,6 +37,7 @@ interface iUserContext {
   userLogin: (userData:iLoginFormValues) => void;
   userRegister: (userData: iRegisterFormValues) => void;
   products:iProduct[] | null;
+  setProducts: React.Dispatch<React.SetStateAction<iProduct[] | null>>;
   userLogout: () => void;
 }
 
@@ -115,5 +116,5 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     navigate('/login');
   }
 
-  return <UserContext.Provider value={{ globalLoading, setGlobalLoading, userData, setUserData, userLogin, userRegister, stateLoading, products, userLogout }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ globalLoading, setGlobalLoading, userData, setUserData, userLogin, userRegister, stateLoading, products, setProducts , userLogout }}>{children}</UserContext.Provider>;
 };

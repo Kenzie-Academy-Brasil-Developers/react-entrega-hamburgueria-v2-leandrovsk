@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
 export const StyledCartProduct = styled.li`
-    display: flex;
-  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
   gap: 10px;
   width: 100%;
   position: relative;
-  padding: 10px;
 
   figure {
     width: 80px;
@@ -19,27 +18,26 @@ export const StyledCartProduct = styled.li`
     width: 100%;
   }
 
-  .CartProductDesc {
-    margin-top: 8px;
+  .CartProductContainer {
     display: flex;
-    flex-direction: column;
     gap: 10px;
+  }
+
+  .CartProductDesc {  
     position: relative;
-    max-width: 40%;
   }
 
-  .CartProductDesc h4 {
-    font-size: 14px;
-    font-weight: 700;
-    color: #333333;
-    width: 100%;
-    min-width: 80%;
+  .RemoveFromCartBtn {
+    height: fit-content;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: ease .3s;
   }
 
-  .CartProductDesc p {
-    font-size: 12px;
-    font-weight: 400;
-    color: #828282;
+  .RemoveFromCartBtn:hover {
+    filter: brightness(0.9);
   }
+ 
 
 `

@@ -38,6 +38,16 @@ export const StyledHeader = styled.header`
         cursor: pointer;
         margin-left: 20px;
         background-color: transparent;
+        position: relative;
+    }
+
+    .CartBtn p {
+        color: #ffffff;
+        font-weight: 700;
+        position: absolute;
+        right: 5px;
+        top: 3px;
+        
     }
 
     @media (width < 730px) {
