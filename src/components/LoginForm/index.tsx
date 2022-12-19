@@ -34,7 +34,7 @@ const LoginForm = () => {
              {errors.email && <p className='FormError'><>{errors.email.message}</></p>}
             <Input placeholder='Digite sua senha' name='password' label='Senha' type='password' register={register}/>
             {errors.password && <p className='FormError'><>{errors.password?.message}</></p>}
-            <Button type='submit' content={globalLoading ? 'Logando...': 'Logar'} className='RegisterLoginBtn'/>
+            <Button type='submit' content={globalLoading ? 'Logando...': 'Logar'} className='LoginSubmitBtn'/>
             <p className='FormMicroDesc'>Crie sua conta para saborear várias delícias e matar sua fome!</p>
             <Link to='/register'>Cadastro</Link>
         </StyledLoginForm>

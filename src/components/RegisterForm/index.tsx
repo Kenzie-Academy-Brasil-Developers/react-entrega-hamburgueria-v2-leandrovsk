@@ -26,7 +26,7 @@ const RegisterForm = () => {
 
     const {register, handleSubmit, formState: { errors }} = useForm<iRegisterFormValues>({mode:'onChange', resolver: yupResolver(formSchema)})
 
-    const { userRegister } = useContext(UserContext)
+    const { userRegister, globalLoading } = useContext(UserContext)
 
     const submit: SubmitHandler<iRegisterFormValues> = (data) => {
         userRegister(data)
@@ -44,7 +44,7 @@ const RegisterForm = () => {
             {errors.password && <p className='FormError'><>{errors.password.message}</></p>}
             <Input name='confirmPassword' type='password'  placeholder='Confirmar senha' register={register}/>
             {errors.confirmPassword && <p className='FormError'><>{errors.confirmPassword.message}</></p>}
-            <Button className='RegisterSubmitBtn' content='Cadastrar' type='submit'/>
+            <Button className='RegisterSubmitBtn' content={globalLoading ? 'Cadastrando...' : 'Cadastrar'} type='submit'/>
         </StyledRegisterForm>
     </>
   )

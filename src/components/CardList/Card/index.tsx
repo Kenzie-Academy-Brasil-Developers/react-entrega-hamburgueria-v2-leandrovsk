@@ -10,12 +10,17 @@ const { addProductToCart } = useContext(CartContext);
   return (
     <>
         <StyledCard id={id}>
+          <figure>
             <img src={img} alt={name} />
-            <p>{name}</p>
-            <p>{category}</p>
-            <p>R$ {price}</p>
-            <button onClick={() => addProductToCart(id)}>Adicionar ao carrinho</button>
+          </figure>
+          <span>
+          <h3>{name}</h3>            
+            <h5>{category}</h5>
+            <h4>R$ {price}</h4>
+            <button className="addProductToCartBtn" onClick={() => addProductToCart(id)}>Adicionar</button>
+          </span>
         </StyledCard>
+
     </>
   )
 }

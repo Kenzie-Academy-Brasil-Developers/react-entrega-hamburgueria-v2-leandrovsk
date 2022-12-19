@@ -18,6 +18,7 @@ export const StyledInputDiv = styled.div`
         font-size: 1.6rem;
         font-weight: 400;
         color: var(--color-gray-3);
+        outline: none;
     }
 
     label {

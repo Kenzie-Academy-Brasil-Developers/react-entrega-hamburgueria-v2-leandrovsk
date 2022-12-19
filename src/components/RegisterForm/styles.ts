@@ -7,7 +7,11 @@ export const StyledRegisterForm = styled.form`
         align-items: flex-start;
         width: 500px;
         max-width: 100%;
-        gap: 15px;
+        gap: 22px;
+        border: 2px solid var(--color-gray-0);
+        padding:24px;
+        border-radius: 8px;
+
 
     .FormError {
         font-size: 1.4rem;
