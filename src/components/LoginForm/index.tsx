@@ -4,22 +4,28 @@ import Input from '../Input'
 import { StyledLoginForm } from './styles'
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup' 
-import { FieldValues, useForm } from 'react-hook-form'
-import { ReactNode } from 'react';
+import { SubmitHandler, useForm} from 'react-hook-form'
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
+export interface iLoginFormValues{
+    email: string;
+    password: string;
+}
 
 const LoginForm = () => {
 
+    const { userLogin, globalLoading } = useContext(UserContext)
 
     const formSchema = yup.object().shape({
         email:yup.string().required('Digite um email válido').email('Email inválido'),
         password: yup.string().required('Digite uma senha'),
     })
 
-    const { handleSubmit, register, formState:{ errors} } = useForm( {mode: "onChange", resolver: yupResolver(formSchema) })
+    const { handleSubmit, register, formState:{ errors} } = useForm<iLoginFormValues>( {mode: "onChange", resolver: yupResolver(formSchema) })
 
-    const submit = (data:FieldValues) => {
-        console.log(data)
+    const submit: SubmitHandler<iLoginFormValues> = (data) => {
+        userLogin(data)
     }
   return (
     <>
@@ -28,7 +34,7 @@ const LoginForm = () => {
              {errors.email && <p className='FormError'><>{errors.email.message}</></p>}
             <Input placeholder='Digite sua senha' name='password' label='Senha' type='password' register={register}/>
             {errors.password && <p className='FormError'><>{errors.password?.message}</></p>}
-            <Button type='submit' content='Logar' className='RegisterLoginBtn'/>
+            <Button type='submit' content={globalLoading ? 'Logando...': 'Logar'} className='LoginSubmitBtn'/>
             <p className='FormMicroDesc'>Crie sua conta para saborear várias delícias e matar sua fome!</p>
             <Link to='/register'>Cadastro</Link>
         </StyledLoginForm>

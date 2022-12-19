@@ -1,8 +1,18 @@
-import React from 'react'
+import { useContext } from "react"
+import CardList from "../../components/CardList"
+import CartList from "../../components/CartList"
+import Header from "../../components/Header"
+import { UserContext } from "../../contexts/UserContext"
 
 const Home = () => {
+
+  
+
   return (
-    <div>Home</div>
+    <>
+      <Header/>
+      <CardList/>
+    </>
   )
 }
 
