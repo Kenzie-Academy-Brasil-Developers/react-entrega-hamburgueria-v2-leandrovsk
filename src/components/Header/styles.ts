@@ -45,8 +45,8 @@ export const StyledHeader = styled.header`
         color: #ffffff;
         font-weight: 700;
         position: absolute;
-        right: 5px;
-        top: 3px;
+        right: 6px;
+        top: 3px;   
         
     }
 
