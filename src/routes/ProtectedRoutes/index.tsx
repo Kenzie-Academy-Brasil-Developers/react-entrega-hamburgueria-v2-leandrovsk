@@ -3,13 +3,13 @@ import { Navigate, Outlet } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 
 const ProtectedRoutes = () => {
-  const { userData, loading } = useContext(UserContext);
+  const { userData, products, globalLoading, stateLoading } = useContext(UserContext);
 
-  if (loading) {
+  if (globalLoading || stateLoading) {
     return null;
   }
 
-  return userData ? <Outlet /> : <Navigate to="/login" />;
+  return (userData || products) ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoutes;
